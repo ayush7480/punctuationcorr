@@ -11,7 +11,7 @@ class PunctuationModel():
             self.pipe = pipeline("ner",model, aggregation_strategy="none")        
 
     def preprocess(self,text):
-        #remove markers except for markers in numbers 
+      
         text = re.sub(r"(?<!\d)[.,;:!?](?!\d)","",text) 
         #todo: match acronyms https://stackoverflow.com/questions/35076016/regex-to-match-acronyms
         text = text.split()
@@ -22,7 +22,7 @@ class PunctuationModel():
         return self.prediction_to_text(result)
         
     def overlap_chunks(self,lst, n, stride=0):
-        """Yield successive n-sized chunks from lst with stride length of overlap."""
+     
         for i in range(0, len(lst), n-stride):
                 yield lst[i:i + n]
 
@@ -34,8 +34,7 @@ class PunctuationModel():
 
         batches = list(self.overlap_chunks(words,chunk_size,overlap))
 
-        # if the last batch is smaller than the overlap, 
-        # we can just remove it
+       
         if len(batches[-1]) <= overlap:
             batches.pop()
 
